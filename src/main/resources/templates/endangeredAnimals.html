@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Endangered Animals</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Endangered Animals</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Species</th>
+        <th>Habitat</th>
+        <th>Approximate Count</th>
+        <th>Last Seen</th>
+        <th>Measures for Survival</th>
+    </tr>
+    <tr th:each="animal : ${animals}">
+        <td th:text="${animal.id}"></td>
+        <td th:text="${animal.species}"></td>
+        <td th:text="${animal.habitat}"></td>
+        <td th:text="${animal.approxCount}"></td>
+        <td th:text="${animal.lastSeen}"></td>
+        <td th:text="${animal.measuresForSurvival}"></td>
+    </tr>
+</table>
+<script src="/js/script.js"></script>
+</body>
+</html>

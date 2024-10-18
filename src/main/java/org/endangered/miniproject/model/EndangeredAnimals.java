@@ -23,16 +23,15 @@ public class EndangeredAnimals {
 
 
     private String food_habits;
-    @ElementCollection // Collection of behaviors
-    private List<String> behaviors;
+    private String behaviors;
 
     private int approxCount; // Approximate number of animals left
     private String lastSeen; // Last seen date
     private String measuresForSurvival; // Measures to improve survival
     private String migrationPatternImage; // URL or path to migration pattern image
 
-    @ElementCollection // Collection of observations
-    private List<String> observations;
+
+    private String observations;
 
     // Default constructor (required for JPA)
     public EndangeredAnimals() {
@@ -70,11 +69,11 @@ public class EndangeredAnimals {
         this.color = color;
     }
 
-    public List<String> getBehaviors() {
+    public String getBehaviors() {
         return behaviors;
     }
 
-    public void setBehaviors(List<String> behaviors) {
+    public void setBehaviors(String behaviors) {
         this.behaviors = behaviors;
     }
 
@@ -110,11 +109,11 @@ public class EndangeredAnimals {
         this.migrationPatternImage = migrationPatternImage;
     }
 
-    public List<String> getObservations() {
+    public String getObservations() {
         return observations;
     }
 
-    public void setObservations(List<String> observations) {
+    public void setObservations(String observations) {
         this.observations = observations;
     }
     public String getFood_habits() {
@@ -131,4 +130,22 @@ public class EndangeredAnimals {
     public void setImg_url(String img_url) {
         this.img_url = img_url;
     }
+    @Override
+    public String toString() {
+        return "EndangeredAnimals{" +
+                "id=" + id +
+                ", species='" + species + '\'' +
+                ", habitat='" + habitat + '\'' +
+                ", color='" + color + '\'' +
+                ", img_url='" + img_url + '\'' +
+                ", food_habits='" + food_habits + '\'' +
+                ", behaviors='" + behaviors + '\'' +
+                ", approxCount=" + approxCount +
+                ", lastSeen='" + lastSeen + '\'' +
+                ", measuresForSurvival='" + measuresForSurvival + '\'' +
+                ", migrationPatternImage='" + migrationPatternImage + '\'' +
+                ", observations='" + observations + '\'' +
+                '}';
+    }
+
 }

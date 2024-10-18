@@ -22,6 +22,7 @@ public class EndangeredAnimalController {
     public String getAllAnimals(Model model) {
         List<EndangeredAnimals> animals = animalService.getAllAnimals();
         model.addAttribute("animals", animals);
+        System.out.println(animals);
         return "endangeredAnimals"; // name of the Thymeleaf template
     }
 }

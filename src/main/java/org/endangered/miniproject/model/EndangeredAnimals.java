@@ -32,7 +32,7 @@ public class EndangeredAnimals {
     private String observations;
 
     @ManyToOne // Many EndangeredAnimals to One Cords
-    @JoinColumn(name = "cords_id") // Foreign key column
+    @JoinColumn(name = "cords_id")
     private Cords cords;
 
     // Getters and setters

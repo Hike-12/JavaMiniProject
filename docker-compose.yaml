@@ -1,0 +1,32 @@
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_DATABASE: animal
+      MYSQL_USER: root
+      MYSQL_PASSWORD: '#Aliqyaan10'
+      MYSQL_ROOT_PASSWORD: '#Aliqyaan10'
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  spring-app:
+    image: openjdk:17-jdk-alpine
+    container_name: springboot-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/animal
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: '#Aliqyaan10'
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-db
+    volumes:
+      - ./target:/app
+    command: ["java", "-jar", "/app/your-springboot-app.jar"]
+
+volumes:
+  mysql_data:

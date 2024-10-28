@@ -1,9 +1,7 @@
 package org.endangered.miniproject.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Cords {
@@ -14,6 +12,20 @@ public class Cords {
 
     private double x;
     private double y;
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+    private String species;
+    private Long animal_id;
+
+    @OneToMany(mappedBy = "cords", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EndangeredAnimals> endangeredAnimals; // Link to EndangeredAnimals
 
     // Default constructor
     public Cords() {
@@ -50,6 +62,14 @@ public class Cords {
         this.y = y;
     }
 
+    public List<EndangeredAnimals> getEndangeredAnimals() {
+        return endangeredAnimals;
+    }
+
+    public void setEndangeredAnimals(List<EndangeredAnimals> endangeredAnimals) {
+        this.endangeredAnimals = endangeredAnimals;
+    }
+
     @Override
     public String toString() {
         return "Cords{" +
@@ -59,4 +79,3 @@ public class Cords {
                 '}';
     }
 }
-

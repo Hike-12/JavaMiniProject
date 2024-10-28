@@ -1,56 +1,53 @@
 package org.endangered.miniproject.model;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
-
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
 public class EndangeredAnimals {
 
     @Id
-    @GeneratedValue // Uncomment this if you want the ID to be auto-generated
-    private Long id; // Use Long for generated ID
-    private String species; // Species name
-    private String habitat; // Natural habitat
-    private String color; // Color description
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String species;
+    private String habitat;
+    private String color;
     private String img_url;
-
-
-
     private String food_habits;
     private String behaviors;
-
-    private int approxCount; // Approximate number of animals left
-    private String lastSeen; // Last seen date
-    private String measuresForSurvival; // Measures to improve survival
-    private String migrationPatternImage; // URL or path to migration pattern image
-
-
+    private int approxCount;
+    private String lastSeen;
+    private String measuresForSurvival;
+    private String migrationPatternImage;
     private String observations;
 
-    // Default constructor (required for JPA)
-    public EndangeredAnimals() {
+    @ManyToOne // Many EndangeredAnimals to One Cords
+    @JoinColumn(name = "cords_id") // Foreign key column
+    private Cords cords;
+
+    // Getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getSpecies() { return species; }
+    public void setSpecies(String species) { this.species = species; }
+
+    public Cords getCords() {
+        return cords;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSpecies() {
-        return species;
-    }
-
-    public void setSpecies(String species) {
-        this.species = species;
+    public void setCords(Cords cords) {
+        this.cords = cords;
     }
 
     public String getHabitat() {
@@ -67,6 +64,22 @@ public class EndangeredAnimals {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
+
+    public String getFood_habits() {
+        return food_habits;
+    }
+
+    public void setFood_habits(String food_habits) {
+        this.food_habits = food_habits;
     }
 
     public String getBehaviors() {
@@ -116,20 +129,7 @@ public class EndangeredAnimals {
     public void setObservations(String observations) {
         this.observations = observations;
     }
-    public String getFood_habits() {
-        return food_habits;
-    }
 
-    public void setFood_habits(String food_habits) {
-        this.food_habits = food_habits;
-    }
-    public String getImg_url() {
-        return img_url;
-    }
-
-    public void setImg_url(String img_url) {
-        this.img_url = img_url;
-    }
     @Override
     public String toString() {
         return "EndangeredAnimals{" +
@@ -145,7 +145,7 @@ public class EndangeredAnimals {
                 ", measuresForSurvival='" + measuresForSurvival + '\'' +
                 ", migrationPatternImage='" + migrationPatternImage + '\'' +
                 ", observations='" + observations + '\'' +
+                ", cords=" + cords + // Include cords in the toString() method
                 '}';
     }
-
 }

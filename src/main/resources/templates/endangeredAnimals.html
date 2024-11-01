@@ -22,6 +22,14 @@
         <td th:text="${animal.approxCount}"></td>
         <td th:text="${animal.lastSeen}"></td>
         <td th:text="${animal.measuresForSurvival}"></td>
+        <td><iframe
+                width="600"
+                height="450"
+                frameborder="0"
+                th:src="${animal.migrationPatternImage}"
+                style="border:1px solid black;">
+        </iframe>
+        </td>
     </tr>
 </table>
 <script src="/js/script.js"></script>

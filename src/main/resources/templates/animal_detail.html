@@ -22,7 +22,6 @@
                 <p><strong>Food Habits:</strong> <span th:text="${animal.food_habits}"></span></p>
                 <p><strong>Behaviors:</strong> <span th:text="${animal.behaviors}"></span></p>
                 <p><strong>Approximate Count:</strong> <span th:text="${animal.approxCount}"></span></p>
-<!--                <p><strong>Last Seen:</strong> <span th:text="${animal.lastSeen}"></span></p>-->
                 <p><strong>Measures for Survival:</strong> <span th:text="${animal.measuresForSurvival}"></span></p>
                 <p><strong>Observations:</strong> <span th:text="${animal.observations}"></span></p>
             </div>
@@ -33,12 +32,22 @@
             <iframe width="600" height="400" frameborder="0" th:src="${animal.migrationPatternImage}" class="border rounded-lg"></iframe>
         </div>
 
-<!--        <div th:if="${animal.cords != null}">-->
-<!--            <p>Coordinates: X = <span th:text="${animal.cords.x}"></span>, Y = <span th:text="${animal.cords.y}"></span></p>-->
-<!--        </div>-->
-<!--        <div th:if="${animal.cords == null}">-->
-<!--            <p>No coordinates available.</p>-->
-<!--        </div>-->
+        <!-- Display Coordinates -->
+        <div th:if="${cordsList != null and !cordsList.isEmpty()}">
+            <h2 class="text-2xl font-semibold mt-6 mb-4">Coordinates</h2>
+            <!-- Loop over the cordsList -->
+            <div th:each="cord : ${cordsList}">
+                <p>Animal ID: <span th:text="${cord.animal_id}"></span></p>
+                <p>Coordinates: X = <span th:text="${cord.x}"></span>, Y = <span th:text="${cord.y}"></span></p>
+                <!-- If 'lastSeen' exists in the Cords class -->
+                <p>Last Seen: <span th:text="${cord.lastSeen}"></span></p>
+            </div>
+        </div>
+
+        <div th:if="${cordsList == null or cordsList.isEmpty()}">
+            <p>No coordinates available.</p>
+        </div>
+
 
         <a href="/animals" class="inline-block mt-6 text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded">Back to Animal List</a>
     </div>

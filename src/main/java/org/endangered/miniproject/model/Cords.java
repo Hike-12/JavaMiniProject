@@ -32,6 +32,15 @@ public class Cords {
     }
 
     private Long animal_id;
+
+    public String getLastSeen() {
+        return lastSeen;
+    }
+
+    public void setLastSeen(String lastSeen) {
+        this.lastSeen = lastSeen;
+    }
+
     private String lastSeen;
 
     @OneToMany(mappedBy = "cords", cascade = CascadeType.ALL, orphanRemoval = true)

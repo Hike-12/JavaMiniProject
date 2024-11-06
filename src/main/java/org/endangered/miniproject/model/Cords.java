@@ -22,7 +22,17 @@ public class Cords {
     }
 
     private String species;
+
+    public Long getAnimal_id() {
+        return animal_id;
+    }
+
+    public void setAnimal_id(Long animal_id) {
+        this.animal_id = animal_id;
+    }
+
     private Long animal_id;
+    private String lastSeen;
 
     @OneToMany(mappedBy = "cords", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EndangeredAnimals> endangeredAnimals; // Link to EndangeredAnimals

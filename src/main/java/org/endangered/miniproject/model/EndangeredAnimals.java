@@ -26,7 +26,6 @@ public class EndangeredAnimals {
     private String food_habits;
     private String behaviors;
     private int approxCount;
-    private String lastSeen;
     private String measuresForSurvival;
     private String migrationPatternImage;
     private String observations;
@@ -98,13 +97,6 @@ public class EndangeredAnimals {
         this.approxCount = approxCount;
     }
 
-    public String getLastSeen() {
-        return lastSeen;
-    }
-
-    public void setLastSeen(String lastSeen) {
-        this.lastSeen = lastSeen;
-    }
 
     public String getMeasuresForSurvival() {
         return measuresForSurvival;
@@ -141,7 +133,6 @@ public class EndangeredAnimals {
                 ", food_habits='" + food_habits + '\'' +
                 ", behaviors='" + behaviors + '\'' +
                 ", approxCount=" + approxCount +
-                ", lastSeen='" + lastSeen + '\'' +
                 ", measuresForSurvival='" + measuresForSurvival + '\'' +
                 ", migrationPatternImage='" + migrationPatternImage + '\'' +
                 ", observations='" + observations + '\'' +

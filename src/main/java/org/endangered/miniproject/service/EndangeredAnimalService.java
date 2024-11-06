@@ -24,8 +24,5 @@ public class EndangeredAnimalService {
         return repository.findById(id).orElse(null);
     }
 
-    public EndangeredAnimals saveAnimal(EndangeredAnimals animal) {
-        return repository.save(animal);
-    }
 }
 

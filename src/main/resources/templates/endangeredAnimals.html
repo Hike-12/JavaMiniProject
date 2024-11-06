@@ -2,36 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Endangered Animals</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/tailwind-output.css">
 </head>
-<body>
-<h1>Endangered Animals</h1>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Species</th>
-        <th>Habitat</th>
-        <th>Approximate Count</th>
-        <th>Last Seen</th>
-        <th>Measures for Survival</th>
-    </tr>
-    <tr th:each="animal : ${animals}">
-        <td th:text="${animal.id}"></td>
-        <td th:text="${animal.species}"></td>
-        <td th:text="${animal.habitat}"></td>
-        <td th:text="${animal.approxCount}"></td>
-        <td th:text="${animal.lastSeen}"></td>
-        <td th:text="${animal.measuresForSurvival}"></td>
-        <td><iframe
-                width="600"
-                height="450"
-                frameborder="0"
-                th:src="${animal.migrationPatternImage}"
-                style="border:1px solid black;">
-        </iframe>
-        </td>
-    </tr>
-</table>
+<body class="bg-gray-100 p-6">
+<h1 class="text-3xl font-bold text-center mb-6">Endangered Animals</h1>
+
+<div class="flex flex-wrap justify-center gap-6">
+    <div th:each="animal : ${animals}" class="bg-white shadow-lg rounded-lg p-4 w-64 text-center ">
+        <img th:src="${animal.migrationPatternImage}" alt="Image of [[${animal.species}]]" class="w-full h-40 object-cover rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2" th:text="${animal.species}"></h3>
+        <a th:href="@{/detail/{id}(id=${animal.id})}" class="text-blue-500 hover:underline">See More</a>
+    </div>
+</div>
+
 <script src="/js/script.js"></script>
 </body>
 </html>
+

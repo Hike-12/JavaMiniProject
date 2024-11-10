@@ -10,7 +10,7 @@
 <div class="flex flex-wrap justify-center gap-6">
     <div th:each="animal : ${animals}" class="bg-white shadow-lg rounded-lg p-4 w-64 text-center ">
         <img th:src="${animal.migrationPatternImage}" alt="Image of [[${animal.species}]]" class="w-full h-40 object-cover rounded-md mb-4">
-        <h3 class="text-xl font-semibold mb-2" th:text="${animal.species}"></h3>
+        <h3 class="text-xl font-semibold mb-2" th:text="${animal.name}"></h3>
         <a th:href="@{/detail/{id}(id=${animal.id})}" class="text-blue-500 hover:underline">See More</a>
     </div>
 </div>

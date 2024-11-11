@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Comment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="background-image: url('/images/comm.jpg'); background-size: cover; background-position: center; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; margin: 0; padding: 2rem; line-height: 1.6; color: #ffffff; min-height: 100vh;">
+<div style="max-width: 800px; margin: 0 auto; padding: 3rem; background-color: #0f5132; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); border-radius: 1rem;">
+    <h1 style="font-size: 2rem; font-weight: 700; color: #ffffff; margin: 0 0 3rem 0; padding-bottom: 1rem; border-bottom: 2px solid rgba(255, 255, 255, 0.1); letter-spacing: -0.025em;">Edit Comment</h1>
+
+    <form th:action="@{/comments/edit/{id}(id=${comment.id})}" method="post" style="margin-top: 2rem; background-color: #18392b; padding: 2rem; border-radius: 0.75rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);">
+        <div style="margin-bottom: 1.75rem;">
+            <label for="author" style="display: block; color: rgba(255, 255, 255, 0.9); font-weight: 500; margin-bottom: 0.625rem;">Name</label>
+            <input type="text" id="author" name="author" readonly th:value="${comment.author}"
+                   style="width: 100%; padding: 0.875rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.5rem; font-size: 1rem; box-sizing: border-box; background-color: #0f5132; color: rgba(255, 255, 255, 0.7); outline: none; cursor: not-allowed;" />
+        </div>
+
+        <div style="margin-bottom: 1.75rem;">
+            <label for="content" style="display: block; color: rgba(255, 255, 255, 0.9); font-weight: 500; margin-bottom: 0.625rem;">Comment</label>
+            <textarea id="content" name="content" rows="6" required th:text="${comment.content}"
+                      style="width: 100%; padding: 0.875rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.5rem; font-size: 1rem; box-sizing: border-box; transition: all 0.2s ease; background-color: #0f5132; color: #ffffff; outline: none; resize: vertical;"
+                      onFocus="this.style.borderColor='rgba(255, 255, 255, 0.3)'; this.style.boxShadow='0 0 0 3px rgba(255, 255, 255, 0.1)';"
+                      onBlur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.boxShadow='none';"></textarea>
+        </div>
+
+        <button type="submit"
+                style="background-color: #18392b; color: #ffffff; padding: 0.875rem 2rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.5rem; font-weight: 500; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                onMouseOver="this.style.backgroundColor='#0f5132'; this.style.transform='translateY(-1px)';"
+                onMouseOut="this.style.backgroundColor='#18392b'; this.style.transform='translateY(0)';">
+            Update Comment
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 2.5rem;">
+        <a href="/comments"
+           style="display: inline-block; background-color: #18392b; color: #ffffff; padding: 0.875rem 2.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 500; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); border: 1px solid rgba(255, 255, 255, 0.1);"
+           onMouseOver="this.style.backgroundColor='#0f5132'; this.style.transform='translateY(-1px)';"
+           onMouseOut="this.style.backgroundColor='#18392b'; this.style.transform='translateY(0)';">
+            Back to Comments
+        </a>
+    </div>
+</div>
+</body>
+</html>

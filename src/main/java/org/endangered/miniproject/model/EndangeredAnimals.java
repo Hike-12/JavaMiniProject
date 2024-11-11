@@ -28,9 +28,9 @@ public class EndangeredAnimals {
     private int approxCount;
     private String measuresForSurvival;
     private String migrationPatternImage;
-    private String observations;
 
-    @ManyToOne // Many EndangeredAnimals to One Cords
+
+    @ManyToOne // Many cords to One endangered Animal
     @JoinColumn(name = "cords_id")
     private Cords cords;
 
@@ -51,7 +51,7 @@ public class EndangeredAnimals {
 
     public String getHabitat() {
         return habitat;
-    }
+    } private String observations;
 
     public void setHabitat(String habitat) {
         this.habitat = habitat;

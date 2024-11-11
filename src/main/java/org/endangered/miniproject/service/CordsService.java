@@ -19,9 +19,9 @@ public class CordsService {
     }
 
     // Get a specific cord by id
-    public Cords getCordsById(Long id) {
-        return cordsRepository.findById(id).orElse(null);
-    }
+//    public Cords getCordsById(Long id) {
+//        return cordsRepository.findById(id).orElse(null);
+//    }
 
     // Get cords by animal id (this will return a list of cords)
     public List<Cords> getCordsByAnimalId(Long animal_id) {

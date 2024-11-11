@@ -12,6 +12,10 @@ public class Cords {
 
     private double x;
     private double y;
+    private String lastSeen;
+
+    private Long animal_id;
+    private String species;
 
     public String getSpecies() {
         return species;
@@ -21,7 +25,7 @@ public class Cords {
         this.species = species;
     }
 
-    private String species;
+
 
     public Long getAnimal_id() {
         return animal_id;
@@ -31,7 +35,7 @@ public class Cords {
         this.animal_id = animal_id;
     }
 
-    private Long animal_id;
+
 
     public String getLastSeen() {
         return lastSeen;
@@ -41,7 +45,7 @@ public class Cords {
         this.lastSeen = lastSeen;
     }
 
-    private String lastSeen;
+
 
     @OneToMany(mappedBy = "cords", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EndangeredAnimals> endangeredAnimals; // Link to EndangeredAnimals
@@ -51,9 +55,10 @@ public class Cords {
     }
 
     // Parameterized constructor
-    public Cords(double x, double y) {
+    public Cords(double x, double y,String lastSeen) {
         this.x = x;
         this.y = y;
+        this.lastSeen = lastSeen;
     }
 
     // Getters and setters
@@ -95,6 +100,7 @@ public class Cords {
                 "id=" + id +
                 ", x=" + x +
                 ", y=" + y +
+                ", lastSeen =" + lastSeen +
                 '}';
     }
 }

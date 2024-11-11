@@ -1,57 +1,104 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Animal Details</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0-beta.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="/css/tailwind-output.css">
+    <title>Animal Details</title>
 </head>
-<body class="bg-gray-100">
 
-<div class="container mx-auto p-6">
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h1 class="text-4xl font-bold mb-4" th:text="${animal.name}"></h1>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal mt-20">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Animal Image and Details -->
-            <div>
-                <img th:src="@{${animal.img_url}}" alt="Animal Image" class="w-full h-80 object-cover rounded-lg mb-4">
+<!--<nav class="bg-off-white-100 shadow-lg p-4 mb-3">-->
+<!--    <div class="max-w-7xl mx-auto px-6 flex justify-center items-center">-->
+<!--        <h1 class="text-3xl font-semibold text-gray-900 mb-4">Life On Land</h1>-->
+<!--    </div>-->
+<!--</nav>-->
+
+
+<!-- Full-screen container with padding around the edges -->
+<div class="min-h-screen flex items-center justify-center px-6 py-8">
+
+    <!-- Card containing animal details with padding and margin -->
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-5xl mx-4 my-6">
+
+        <!-- Animal Name centered with margin -->
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-6 text-center px-4" th:text="${animal.name}"></h1>
+
+
+        <!--            <span th:text="${animal.name}"></span>-->
+        </h1>
+
+
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- Left Side: Animal Details with margin and padding -->
+            <div class="space-y-4 px-4">
+                <p class="text-lg text-gray-700 mb-2"><strong>Species:</strong> <span th:text="${animal.species}"></span></p>
+                <p class="text-lg text-gray-700 mb-2"><strong>Habitat:</strong> <span th:text="${animal.habitat}"></span></p>
+                <p class="text-lg text-gray-700 mb-2"><strong>Color:</strong> <span th:text="${animal.color}"></span></p>
+                <p class="text-lg text-gray-700 mb-2"><strong>Food Habits:</strong> <span th:text="${animal.food_habits}"></span></p>
+                <p class="text-lg text-gray-700 mb-2"><strong>Behaviors:</strong> <span th:text="${animal.behaviors}"></span></p>
+                <p class="text-lg text-gray-700 mb-2"><strong>Approximate Count:</strong> <span th:text="${animal.approxCount}"></span></p>
+                <p class="text-lg text-gray-700 mb-2"><strong>Measures for Survival:</strong> <span th:utext="${animal.measuresForSurvival}"></span></p>
+                <p class="text-lg text-gray-700 mb-2"><strong>Observations:</strong> <span th:text="${animal.observations}"></span></p>
             </div>
-            <div>
-                <p><strong>Species:</strong> <span th:text="${animal.species}"></span></p>
-                <p><strong>Habitat:</strong> <span th:text="${animal.habitat}"></span></p>
-                <p><strong>Color:</strong> <span th:text="${animal.color}"></span></p>
-                <p><strong>Food Habits:</strong> <span th:text="${animal.food_habits}"></span></p>
-                <p><strong>Behaviors:</strong> <span th:text="${animal.behaviors}"></span></p>
-                <p><strong>Approximate Count:</strong> <span th:text="${animal.approxCount}"></span></p>
-                <p><strong>Measures for Survival:</strong> <span th:text="${animal.measuresForSurvival}"></span></p>
-                <p><strong>Observations:</strong> <span th:text="${animal.observations}"></span></p>
+
+            <!-- Right Side: Animal Image with padding and margin -->
+            <div class="px-4">
+                <img th:src="@{'/images/' + ${animal.img_url}}" alt="Animal Image" class="w-100 h-80 rounded-lg shadow-lg hover:opacity-80 transition duration-300 mb-6">
+            </div>
+        </div>
+        <p class="text-lg text-gray-700 mb-2 font-semibold">Migration Path</p>
+        <iframe th:src="${animal.migrationPatternImage}" style="height: 400px; width: 100%;" class="border-2 border-gray-300 rounded-lg shadow-md mb-6" frameborder="0"></iframe>
+
+        <!-- Display Coordinates with margin and padding -->
+        <div th:if="${cordsList != null and !cordsList.isEmpty()}" class="mt-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mt-4 mb-4 px-4">Coordinates</h2>
+            <div th:each="cord, iterStat : ${cordsList}" class="mb-6 px-4">
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+                    <p class="text-lg text-gray-700 mb-2">Coordinates: X = <span th:text="${cord.x}"></span>, Y = <span th:text="${cord.y}"></span></p>
+                    <!--                    <p class="mb-4">Last seen = <span th:text="${cord.lastSeen}"></span></p>-->
+                    <div class="mt-4">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Last Seen</h3>
+                        <div th:id="'map-' + ${iterStat.index}" style="height: 400px; width: 100%;" class="border-2 border-gray-300 rounded-lg shadow-md mb-6"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="mt-6">
-            <h2 class="text-2xl font-semibold mb-4">Migration Pattern</h2>
-            <iframe width="600" height="400" frameborder="0" th:src="${animal.migrationPatternImage}" class="border rounded-lg"></iframe>
+        <div th:if="${cordsList == null or cordsList.isEmpty()}" class="mt-4 text-center px-4">
+            <p class="text-center text-gray-500">No coordinates available.</p>
         </div>
 
-        <!-- Display Coordinates -->
-        <div th:if="${cordsList != null and !cordsList.isEmpty()}">
-            <h2 class="text-2xl font-semibold mt-6 mb-4">Coordinates</h2>
-            <!-- Loop over the cordsList -->
-            <div th:each="cord : ${cordsList}">
-                <p>Animal ID: <span th:text="${cord.animal_id}"></span></p>
-                <p>Coordinates: X = <span th:text="${cord.x}"></span>, Y = <span th:text="${cord.y}"></span></p>
-                <!-- If 'lastSeen' exists in the Cords class -->
-                <p>Last Seen: <span th:text="${cord.lastSeen}"></span></p>
-            </div>
+        <div class="mt-8 text-center">
+            <a href="/animals" class="inline-block text-black bg-blue-600 hover:bg-blue-700 py-2 px-6 rounded-lg text-lg font-semibold shadow-md hover:shadow-lg transition duration-300 mb-6">Back to Animal List</a>
         </div>
-
-        <div th:if="${cordsList == null or cordsList.isEmpty()}">
-            <p>No coordinates available.</p>
-        </div>
-
-
-        <a href="/animals" class="inline-block mt-6 text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded">Back to Animal List</a>
     </div>
 </div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // Get the coordinates list from Thymeleaf
+    var cordsList = /*[[${cordsList}]]*/ [];
+
+    // Initialize maps for each coordinate
+    cordsList.forEach(function(cord, index) {
+        var mapId = 'map-' + index;
+        var map = L.map(mapId).setView([cord.x, cord.y], 7);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([cord.x, cord.y]).addTo(map)
+            .bindPopup('Animal Last Seen Location')
+            .openPopup();
+    });
+    /*]]>*/
+</script>
 
 </body>
 </html>

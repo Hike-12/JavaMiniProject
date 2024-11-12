@@ -17,12 +17,28 @@ public class EndangeredAnimalService {
     }
 
     public List<EndangeredAnimals> getAllAnimals() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<EndangeredAnimals> animals = repository.findAll();
+                System.out.println("Fetched all animals in thread: " + Thread.currentThread().getName());
+            }
+        });
+        thread.start();
+
         return repository.findAll();
     }
 
     public EndangeredAnimals getAnimalById(String id) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                EndangeredAnimals animal = repository.findById(id).orElse(null);
+                System.out.println("Fetched animal with ID: " + id + " in thread: " + Thread.currentThread().getName());
+            }
+        };
+        thread.start();
+
         return repository.findById(id).orElse(null);
     }
-
 }
-

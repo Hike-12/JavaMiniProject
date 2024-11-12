@@ -13,28 +13,38 @@ public class CordsService {
     @Autowired
     private CordsRepository cordsRepository;
 
-    // Get all cords
     public List<Cords> getAllCords() {
+        Thread thread = new Thread(() -> {
+            List<Cords> cords = cordsRepository.findAll();
+            System.out.println("Fetched all cords in thread: " + Thread.currentThread().getName());
+        });
+        thread.start();
         return cordsRepository.findAll();
     }
 
-    // Get a specific cord by id
-//    public Cords getCordsById(Long id) {
-//        return cordsRepository.findById(id).orElse(null);
-//    }
-
-    // Get cords by animal id (this will return a list of cords)
     public List<Cords> getCordsByAnimalId(Long animal_id) {
+        Thread thread = new Thread(() -> {
+            List<Cords> cords = cordsRepository.findByAnimalId(animal_id);
+            System.out.println("Fetched cords for animal ID: " + animal_id + " in thread: " + Thread.currentThread().getName());
+        });
+        thread.start();
         return cordsRepository.findByAnimalId(animal_id);
     }
 
-    // Save or update a cord
     public Cords saveCords(Cords cords) {
+        Thread thread = new Thread(() -> {
+            Cords savedCords = cordsRepository.save(cords);
+            System.out.println("Saved cords in thread: " + Thread.currentThread().getName());
+        });
+        thread.start();
         return cordsRepository.save(cords);
     }
 
-    // Delete a cord by id
     public void deleteCords(Long id) {
-        cordsRepository.deleteById(id);
+        Thread thread = new Thread(() -> {
+            cordsRepository.deleteById(id);
+            System.out.println("Deleted cords with ID: " + id + " in thread: " + Thread.currentThread().getName());
+        });
+        thread.start();
     }
 }

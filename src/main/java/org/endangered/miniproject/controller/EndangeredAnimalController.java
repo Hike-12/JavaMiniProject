@@ -34,7 +34,6 @@ public class EndangeredAnimalController {
         try {
             List<EndangeredAnimals> animals = animalService.getAllAnimals();
             model.addAttribute("animals", animals);
-            System.out.println(animals);
             return "endangeredAnimals"; // Thymeleaf template name
         } catch (Exception e) {
             model.addAttribute("error", "An error occurred while fetching animal data.");
@@ -42,7 +41,7 @@ public class EndangeredAnimalController {
         }
     }
 
-    // Get details for a specific animal, including its associated cords
+
     @GetMapping("/detail/{id}")
     public String getAnimalDetails(@PathVariable String id, Model model) {
         try {
@@ -58,29 +57,6 @@ public class EndangeredAnimalController {
         } catch (Exception e) {
             model.addAttribute("error", "An error occurred while fetching animal details.");
             return "error";
-        }
-    }
-
-    // Exception handler for AnimalNotFoundException
-    @ExceptionHandler(AnimalNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleAnimalNotFoundException(AnimalNotFoundException e, Model model) {
-        model.addAttribute("error", e.getMessage());
-        return "errorPage";  // Redirect to a custom error page
-    }
-
-    // Exception handler for general exceptions (optional)
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleGenericException(Exception e, Model model) {
-        model.addAttribute("error", "An unexpected error occurred: " + e.getMessage());
-        return "errorPage";  // Redirect to a custom error page
-    }
-
-    // Custom exception for when an animal is not found
-    public static class AnimalNotFoundException extends RuntimeException {
-        public AnimalNotFoundException(String message) {
-            super(message);
         }
     }
 }
